@@ -1,0 +1,42 @@
+{
+  "name": "skill-sentinel",
+  "version": "0.1.0",
+  "description": "Integrity guard for AI agent skills: review lock, project-fit checks and harmful-content rules in English and Arabic. Zero dependencies.",
+  "type": "module",
+  "bin": {
+    "skill-sentinel": "skills/skill-sentinel/scripts/sentinel.mjs"
+  },
+  "files": [
+    "skills/skill-sentinel",
+    "action.yml",
+    "README.md",
+    "README.ar.md",
+    "LICENSE",
+    "docs"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "scan": "node skills/skill-sentinel/scripts/sentinel.mjs .",
+    "rules:docs": "node scripts/rules-doc.mjs > docs/rules.md"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "agent-skills",
+    "skills",
+    "security",
+    "prompt-injection",
+    "supply-chain",
+    "arabic"
+  ],
+  "license": "MIT",
+  "author": "Omer Haidr (https://c3mr.me)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/C3MR/skill-sentinel"
+  },
+  "homepage": "https://c3mr.github.io/skill-sentinel/"
+}

@@ -1,0 +1,33 @@
+name: skill-sentinel
+description: Integrity guard for AI agent skills — review lock, project-fit checks and harmful-content rules.
+branding:
+  icon: shield
+  color: blue
+inputs:
+  path:
+    description: Project root, skills collection or single skill folder to scan.
+    default: "."
+  lang:
+    description: Message language, en or ar.
+    default: en
+  strict:
+    description: Fail on warnings too.
+    default: "false"
+  lock:
+    description: Check the review lock (skills.lock.json).
+    default: "true"
+runs:
+  using: composite
+  steps:
+    - name: Run skill-sentinel
+      shell: bash
+      env:
+        SENTINEL_PATH: ${{ inputs.path }}
+        SENTINEL_LANG: ${{ inputs.lang }}
+        SENTINEL_STRICT: ${{ inputs.strict }}
+        SENTINEL_LOCK: ${{ inputs.lock }}
+      run: |
+        args=("$SENTINEL_PATH" --format github --lang "$SENTINEL_LANG")
+        if [ "$SENTINEL_STRICT" = "true" ]; then args+=(--strict); fi
+        if [ "$SENTINEL_LOCK" != "true" ]; then args+=(--no-lock); fi
+        node "$GITHUB_ACTION_PATH/skills/skill-sentinel/scripts/sentinel.mjs" "${args[@]}"
